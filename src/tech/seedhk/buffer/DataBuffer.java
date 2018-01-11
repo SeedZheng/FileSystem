@@ -76,7 +76,7 @@ public class DataBuffer implements Serializable{
 					s1+=n;
 					//if(n!=0)
 						log.info("本次发送的数据大小为："+n);
-					Thread.sleep(10);
+					//Thread.sleep(10);
 				}
 				//发送数据
 				s1+=channel.write(ByteBuffer.wrap(dataEnd));
@@ -244,16 +244,16 @@ public class DataBuffer implements Serializable{
 				i=channel.read(body);
 				//if(i!=0)
 					log.info("本次拿到的body大小是:"+i);
-				Thread.sleep(10);
+				Thread.sleep(100);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			sum+=i;
 		}
-		if(i<0){
-			log.info("一个客户端退出了");
-			return null;
-		}else{
+		//if(i<0){//i在这里不会小于0
+		//	log.info("一个客户端退出了");
+		//	return null;
+		//}else{
 			log.info("本次接收到的body大小是： "+sum);
 			byte[] b=body.array();
 			if(b[b.length-4]==dataEnd[0] && b[b.length-3]==dataEnd[1] && b[b.length-2]==dataEnd[2] & b[b.length-1]==dataEnd[3]){
@@ -264,7 +264,7 @@ public class DataBuffer implements Serializable{
 				log.error("此次接受到的body不完整！");
 				return null;
 			}
-		}
+		//}
 		
 		
 	}

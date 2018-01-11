@@ -41,7 +41,7 @@ public class Repeater {
 	@SuppressWarnings("resource")
 	private void initServer(int port)throws Exception{
 		ServerSocket ss=new ServerSocket(port);
-		log.info("repeater starting");
+		log.info("repeater starting at "+port);
 		while(true){
 			Socket s = ss.accept();
 			log.info("当前socket的hashcode："+s.hashCode());
