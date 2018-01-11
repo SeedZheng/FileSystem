@@ -236,6 +236,7 @@ public class DataBuffer implements Serializable{
 	public BodyBuffer getBody(int body_size,SocketChannel channel){
 		
 		ByteBuffer body=ByteBuffer.allocate(body_size);
+		long start=System.currentTimeMillis();
 		int i=-1;
 		long sum=0;
 		log.info("body_size："+body_size);
@@ -257,6 +258,7 @@ public class DataBuffer implements Serializable{
 		//	return null;
 		//}else{
 			log.info("本次接收到的body大小是： "+sum);
+			log.info("接受body 耗时："+(System.currentTimeMillis()-start));
 			byte[] b=body.array();
 			if(b[b.length-4]==dataEnd[0] && b[b.length-3]==dataEnd[1] && b[b.length-2]==dataEnd[2] & b[b.length-1]==dataEnd[3]){
 				byte[] d=Arrays.copyOf(b, body_size-4);
@@ -266,9 +268,6 @@ public class DataBuffer implements Serializable{
 				log.error("此次接受到的body不完整！");
 				return null;
 			}
-		//}
-		
-		
 	}
 	
 	
