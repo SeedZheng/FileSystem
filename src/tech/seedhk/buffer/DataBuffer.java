@@ -74,6 +74,10 @@ public class DataBuffer implements Serializable{
 				while(s1!=buff.limit()){//只要数据没发送完，就一直发送
 					n=channel.write(buff);
 					s1+=n;
+					while(n!=0){
+						n=channel.write(buff);
+						s1+=n;
+					}
 					if(n!=0)
 						log.info("本次发送的数据大小为："+n);
 					//Thread.sleep(10);
@@ -246,8 +250,7 @@ public class DataBuffer implements Serializable{
 				
 				if(i==0)
 					Thread.sleep(100);
-				else
-					log.info("本次拿到的body大小是:"+i);
+				log.info("本次拿到的body大小是:"+i);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
