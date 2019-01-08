@@ -15,7 +15,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import tech.seedhk.bean.ProxyObject;
 import tech.seedhk.buffer.BodyBuffer;
@@ -32,7 +33,7 @@ public class Client {
 	
 	private  Selector selector;
 	private boolean isGet=false;
-	private static Logger log=Log.getInstance(Client.class);
+	private static Logger log=LoggerFactory.getLogger(Client.class);
 	
 	public static void main(String[] args) throws Exception {
 		String host="127.0.0.1";
@@ -57,7 +58,7 @@ public class Client {
 
 			tech.seedhk.bean.ByteBuffer buffer=new tech.seedhk.bean.ByteBuffer();
 			buffer.write(os, "client");
-			log.info(is.available());
+			log.info(is.available()+"");
 			byte[] data = tech.seedhk.bean.ByteBuffer.read(is);
 			String ret=new String(data,"utf-8");
 			log.info(ret);
@@ -70,7 +71,7 @@ public class Client {
 				is.close();
 				os.close();
 				s.close();
-				log.info(s.isClosed());
+				log.info(s.isClosed()+"");
 				initClient(ip,port);
 				isGet=true;
 			}	
@@ -88,7 +89,7 @@ public class Client {
 		
 		//执行完这步后，服务器端的select连接阻塞状态会解除,如果通道的阻塞模式为false，此方法会立即返回
 		boolean isDone=sc.connect(new InetSocketAddress(ip,port));
-		log.info(isDone);
+		log.info(isDone+"");
 		
 		sc.register(selector, SelectionKey.OP_CONNECT);
 		

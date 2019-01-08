@@ -11,7 +11,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import tech.seedhk.utils.Log;
 
@@ -36,7 +37,7 @@ public class DataBuffer implements Serializable{
 	 *  5.先发送headBuffer
 	 *  6.睡眠1s，对每个segment都进行write操作(是否可行待测试)
 	 */
-	private Logger log=Log.getInstance(this.getClass());
+	private static Logger log=LoggerFactory.getLogger(DataBuffer.class);
 	private static final long serialVersionUID = 1L;
 	//private static final  byte[] dataSep;	//segment分隔符
 	private static final byte[] dataEnd;	//数据结束符

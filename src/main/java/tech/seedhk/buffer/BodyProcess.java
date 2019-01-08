@@ -10,14 +10,15 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import tech.seedhk.bean.ProxyObject;
 import tech.seedhk.utils.Log;
 
 public class BodyProcess {
 	
-	private static Logger log=Log.getInstance(BodyProcess.class);
+	private static Logger log=LoggerFactory.getLogger(BodyProcess.class);
 	
 	
 	public static void  processClient(final BodyBuffer body,SocketChannel channel) throws IOException{
