@@ -17,11 +17,11 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import tech.seedhk.bean.ProxyObject;
 import tech.seedhk.netty.NioServerBoss;
-import tech.seedhk.utils.Log;
 
 
 /**
@@ -32,7 +32,7 @@ import tech.seedhk.utils.Log;
 public class Server {
 	
 	private Selector selector;
-	private static Logger log=Log.getInstance(Server.class);
+	private static Logger log=LoggerFactory.getLogger(Server.class);
 	
 	public static void main(String[] args) throws Exception {
 		String host="39.108.208.62";
@@ -63,7 +63,7 @@ public class Server {
 			is.close();
 			os.close();
 			s.close();
-			log.info(s.isClosed());
+			log.info(s.isClosed()+"");
 			new NioServerBoss(Executors.newCachedThreadPool(), "boss", selector, port);
 		}
 	}

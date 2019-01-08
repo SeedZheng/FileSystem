@@ -15,15 +15,17 @@ import java.util.Iterator;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import tech.seedhk.bean.ProxyObject;
 import tech.seedhk.buffer.BodyBuffer;
 import tech.seedhk.buffer.BodyProcess;
 import tech.seedhk.buffer.DataBuffer;
-import tech.seedhk.utils.Log;
 
 public class NioServerBoss implements Runnable{
+	
+	private static Logger log=LoggerFactory.getLogger(NioServerBoss.class);
 	
 	
 	public static void main(String[] args) {
@@ -32,9 +34,8 @@ public class NioServerBoss implements Runnable{
 	
 	private Executor boss;
 	private Executor worker=Executors.newFixedThreadPool(2);
-	private static Logger log=Log.getInstance(NioServerBoss.class);
 	
-	private String threadName;
+	private  String threadName;
 	private static Selector selector;
 	private int port;
 

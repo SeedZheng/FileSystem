@@ -26,8 +26,8 @@
 	</Appenders>
 
 	<Loggers>
-		<Root level="debug"> <!-- 全局配置 -->
-			<AppenderRef ref="ERROR" />
+		<Root level="DEBUG"> <!-- 全局配置 -->
+			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFile"/>
 		</Root>
 
@@ -35,6 +35,5 @@
 		<Logger name="org.agile4j.rpc" level="debug" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
-
 	</Loggers>
 </Configuration>

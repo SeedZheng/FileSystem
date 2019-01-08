@@ -14,8 +14,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import tech.seedhk.utils.Log;
-
 /**
  * 目的：
  * 	  整合head和body的数据，并根据headBuffer中的分隔符对数据进行分块，分段传输
