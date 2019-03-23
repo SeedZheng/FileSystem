@@ -1,15 +1,21 @@
 package tech.seedhk.test;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MutilEnQueueTest {
 	
 	public static void main(String[] args) throws Exception {
-		Integer a1=500;
+		
+		Calendar calendar=Calendar.getInstance();
+		calendar.set(2018, 1, 1);
+		System.out.println(calendar.getTime());
+		
+		/*Integer a1=500;
 		Integer a2=501;
 		CAS(500,a1,a2);
-		System.out.println(a1);
+		System.out.println(a1);*/
 	}
 	
 

@@ -15,7 +15,8 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import tech.seedhk.bean.ByteBuffer;
+import tech.seedhk.bean.ByteBuffers;
+import tech.seedhk.bean.Message;
 
 public class Repeater {
 	
@@ -84,22 +85,25 @@ public class Repeater {
 				is=new DataInputStream(socket.getInputStream());
 				os=new DataOutputStream(socket.getOutputStream());
 				
-				byte[] data=ByteBuffer.read(is);
+				Message message=ByteBuffers.readMsg(is);
+
 				String ip=socket.getInetAddress().getHostAddress();
-				String type=new String(data,"utf-8");
-				if("client".equals(type))
-					map.put("client", ip);
-				if("server".equals(type))
-					map.put("server", ip);
+				int port=socket.getPort();
+
+				if(Message.REGCLIENT.equals(message.getMessageType())) {
+					map.put(ip+port, ip);
+				}
+				if(Message.REGSERVER.equals(message.getMessageType())) {
+					map.put(ip+port, ip);
+				}
 				
-				ByteBuffer buffer=new ByteBuffer();
-				buffer.write(os, "success");
+				ByteBuffers.sendMsg(os, Message.SUCCESS);
 				
 				os.close();
 				is.close();
 				socket.close();
 				
-				log.info( type+"注册完毕");
+				log.info( (ip+port)+"注册成功");
 					
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -130,7 +134,7 @@ public class Repeater {
 			try {
 				//is=new DataInputStream(socket.getInputStream());
 				os=new DataOutputStream(socket.getOutputStream());
-				ByteBuffer buffer=new ByteBuffer();
+				ByteBuffers buffer=new ByteBuffers();
 				
 				if(map.get("server")==null)
 					buffer.write(os, "no ip");
@@ -180,7 +184,7 @@ public class Repeater {
 				is=new DataInputStream(socket.getInputStream());
 				os=new DataOutputStream(socket.getOutputStream());
 				
-				byte[] data=ByteBuffer.read(is);
+				byte[] data=ByteBuffers.read(is);
 				String ip=socket.getInetAddress().getHostAddress();
 				String type=new String(data,"utf-8");
 				if("client".equals(type))
@@ -188,7 +192,7 @@ public class Repeater {
 				if("server".equals(type))
 					map.put("server", ip);
 				
-				ByteBuffer buffer=new ByteBuffer();
+				ByteBuffers buffer=new ByteBuffers();
 				buffer.write(os, "success");
 				
 				os.close();

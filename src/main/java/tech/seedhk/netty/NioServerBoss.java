@@ -65,11 +65,12 @@ public class NioServerBoss implements Runnable{
 			ssc.socket().bind(new InetSocketAddress(port));
 			
 			ssc.register(selector, SelectionKey.OP_ACCEPT);
+			
+			boss.execute(this);
+			log.info(Thread.currentThread().getName()+"启动成功");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		boss.execute(this);
-		log.info(Thread.currentThread().getName()+"启动成功");
 		
 	}
 

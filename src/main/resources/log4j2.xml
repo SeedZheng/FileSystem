@@ -13,7 +13,7 @@
 		</Console>
 		
 		<!-- 输出到文件，fileName：目标路径和文件名；filePattern：文件分割命名规则，zip file folder and file name pattern -->	
-		<RollingFile name="RollingFile" fileName="logs/agile4j.log"	filePattern="logs/$${date:yyyy-MM}/rpc-client-%d{yyyy-MM-dd}-%i.log.gz">
+		<RollingFile name="RollingFile" fileName="logs/fileSystem.log"	filePattern="logs/$${date:yyyy-MM}/rpc-client-%d{yyyy-MM-dd}-%i.log.gz">
 			<PatternLayout>
 				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
 			</PatternLayout>
@@ -32,8 +32,8 @@
 		</Root>
 
 		<!-- 为某些包/类配置特别的Log级别 -->
-		<Logger name="org.agile4j.rpc" level="debug" additivity="false">
+		<!-- <Logger name="tech.seedhk" level="debug" additivity="false">
 			<AppenderRef ref="Console" />
-		</Logger>
+		</Logger> -->
 	</Loggers>
 </Configuration>

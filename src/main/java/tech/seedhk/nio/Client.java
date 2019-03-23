@@ -24,7 +24,7 @@ import tech.seedhk.buffer.BodyProcess;
 import tech.seedhk.buffer.DataBuffer;
 
 /**
- * 控制端，基于NIO,单线程足矣
+ * 控制端，基于NIO,单线程
  * @author Seed
  * 2017年12月6日 下午5:09:09
  */
@@ -55,10 +55,10 @@ public class Client {
 			InputStream is=new DataInputStream(s.getInputStream());
 			OutputStream os=new DataOutputStream(s.getOutputStream());
 
-			tech.seedhk.bean.ByteBuffer buffer=new tech.seedhk.bean.ByteBuffer();
+			tech.seedhk.bean.ByteBuffers buffer=new tech.seedhk.bean.ByteBuffers();
 			buffer.write(os, "client");
 			log.info(is.available()+"");
-			byte[] data = tech.seedhk.bean.ByteBuffer.read(is);
+			byte[] data = tech.seedhk.bean.ByteBuffers.read(is);
 			String ret=new String(data,"utf-8");
 			log.info(ret);
 			is.close();

@@ -2,25 +2,16 @@ package tech.seedhk.nio;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
-import java.util.Iterator;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import tech.seedhk.bean.ProxyObject;
+import tech.seedhk.bean.ByteBuffers;
+import tech.seedhk.bean.Message;
 import tech.seedhk.netty.NioServerBoss;
 
 
@@ -35,7 +26,7 @@ public class Server {
 	private static Logger log=LoggerFactory.getLogger(Server.class);
 	
 	public static void main(String[] args) throws Exception {
-		String host="39.108.208.62";
+		String host="127.0.0.1";
 		int port=8888;
 		//先连接中继器，注册成功后启动Server端
 		Server server=new Server();
@@ -53,12 +44,12 @@ public class Server {
 		InputStream is=new DataInputStream(s.getInputStream());
 		OutputStream os=new DataOutputStream(s.getOutputStream());
 
-		tech.seedhk.bean.ByteBuffer buffer=new tech.seedhk.bean.ByteBuffer();
-		buffer.write(os, "server");
-		byte[] data = tech.seedhk.bean.ByteBuffer.read(is);
-		String ret=new String(data,"utf-8");
-		log.info(ret);
-		if("success".equals(ret)){
+		//ByteBuffers buffer=new ByteBuffers();
+		//buffer.write(os, "server");
+		ByteBuffers.sendMsg(os, Message.REGCLIENT);
+		Message messge=ByteBuffers.readMsg(is);
+
+		if(Message.SUCCESS.equals(messge.getMessageType())){
 			log.info("注册成功，启动sever");
 			is.close();
 			os.close();
